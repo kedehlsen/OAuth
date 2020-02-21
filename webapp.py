@@ -16,8 +16,13 @@ github = oauth.remote_app(
     'github',
     consumer_key=os.environ['GITHUB_CLIENT_ID'], 
     consumer_secret=os.environ['GITHUB_CLIENT_SECRET'],
-    request_token_params={'scope': 'user:email'}, base_url='https://api.github.com/',request_token_url=None,access_token_method='POST',access_token_url='https://github.com/login/oauth/access_token',  authorize_url='https://github.com/login/oauth/authorize' #URL for github's OAuth login)
-
+    request_token_params={'scope': 'user:email'}, #request read-only access to the user's email.  For a list of possible scopes, see developer.github.com/apps/building-oauth-apps/scopes-for-oauth-apps
+    base_url='https://api.github.com/',
+    request_token_url=None,
+    access_token_method='POST',
+    access_token_url='https://github.com/login/oauth/access_token',  
+    authorize_url='https://github.com/login/oauth/authorize' #URL for github's OAuth login
+)
 
 @app.context_processor
 def inject_logged_in():
@@ -55,7 +60,7 @@ def authorized():
     return render_template('message.html', message=message)
 
 
-@app.route('/page1')
+@app.route('/')
 def renderPage1():
     if 'user_data' in session:
         user_data_pprint = pprint.pformat(session['user_data'])#format the user data nicely
