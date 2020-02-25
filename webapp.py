@@ -5,6 +5,8 @@ from flask import render_template
 import pprint
 import os
 
+user_list=[]
+
 app = Flask(__name__)
 
 app.debug = True #Change this to False for production
@@ -27,6 +29,10 @@ github = oauth.remote_app(
 @app.context_processor
 def inject_logged_in():
     return {"logged_in":('github_token' in session)}
+
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 @app.route('/login')
 def login():   
