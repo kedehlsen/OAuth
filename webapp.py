@@ -5,7 +5,8 @@ from flask import render_template
 import pprint
 import os
 
-user_list=[]
+username_list=[]
+user_follow=[]
 
 app = Flask(__name__)
 
@@ -55,7 +56,9 @@ def authorized():
             session['github_token'] = (resp['access_token'], '')
             session['user_data'] = github.get('user').data
             if session['user_data']['bio'] == 'SBHS CS peeps':
-              message = 'You were successfully logged in as ' +session['user_data']['login'] + '.'
+                username_list.append(session['user_data']['login'])
+                user_follow.append(session['user_data']['followers'])
+                message = 'You were successfully logged in as ' +session['user_data']['login'] + '.'
             else:
               message = "I'm sorry, you are not qualified"
         except Exception as inst:
@@ -73,6 +76,14 @@ def renderPage1():
     else:
         user_data_pprint = '';
     return render_template('page1.html',dump_user_data=user_data_pprint)
+
+@app.route('/page2')
+def renderPage2():
+    if 'user_data' in session:
+        user_data_pprint = pprint.pformat(session['user_data'])#format the user data nicely
+    else:
+        user_data_pprint = '';
+    return render_template('page2.html',dump_user_data=user_data_pprint)
 
 @github.tokengetter
 def get_github_oauth_token():
