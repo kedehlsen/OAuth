@@ -72,7 +72,7 @@ def authorized():
 @app.route('/page1')
 def renderPage1():
     if 'user_data' in session and session['user_data']['bio'] == 'SBHS CS peeps':
-        user_data_pprint = pprint.pformat(session['user_data'])
+        user_data_pprint = 'Welcome to the exclusive club!'
     else:
         user_data_pprint = '';
     return render_template('page1.html',dump_user_data=user_data_pprint)
