@@ -80,7 +80,7 @@ def renderPage1():
 @app.route('/page2')
 def renderPage2():
     if 'user_data' in session and ((session['user_data']['login'] == 'kedehlsen') or (session['user_data']['login'] == 'jocelyngallardo')):
-        user_data_pprint = 'Hello, buddy!"
+        user_data_pprint = 'Hello, buddy!'
     else:
         user_data_pprint = '';
     return render_template('page2.html',dump_user_data=user_data_pprint)
