@@ -71,16 +71,16 @@ def authorized():
 
 @app.route('/page1')
 def renderPage1():
-    if 'user_data' in session:
-        user_data_pprint = pprint.pformat(session['user_data'])#format the user data nicely
+    if 'user_data' in session and session['user_data']['bio'] == 'SBHS CS peeps':
+        user_data_pprint = pprint.pformat(session['user_data'])
     else:
         user_data_pprint = '';
     return render_template('page1.html',dump_user_data=user_data_pprint)
 
 @app.route('/page2')
 def renderPage2():
-    if 'user_data' in session:
-        user_data_pprint = pprint.pformat(session['user_data'])#format the user data nicely
+    if 'user_data' in session and (session['user_data']['login'] == 'kedehlsen' or (session['user_data']['login'] == 'jocelyngallardo'):
+        user_data_pprint = 'Hello, buddy!"
     else:
         user_data_pprint = '';
     return render_template('page2.html',dump_user_data=user_data_pprint)
