@@ -3,7 +3,28 @@
 {% block title %}Message{% endblock %}
 
 {% block content %}
-  <p>{{ message }}</p>
+
+	<p>{% with messages = get_flashed_messages() %} This returns a list of the messages stored in the session. 
+
+
+  		{% if messages %}
+
+
+     		{% for message in messages %} Jinja for loop
+
+
+       		<div>{{ message }}</div> Make a divider for each message
+
+
+     		{% endfor %}
+
+
+  		{% endif %}
+
+
+	{% endwith %}</p>
+	
+
 
 
 {% endblock %}

@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, session, request, jsonify
 from flask_oauthlib.client import OAuth
 from flask import render_template
+from flask import flash
 
 import pprint
 import os
@@ -58,15 +59,15 @@ def authorized():
             if session['user_data']['bio'] == 'SBHS CS peeps':
                 username_list.append(session['user_data']['login'])
                 user_follow.append(session['user_data']['followers'])
-                message = 'You were successfully logged in as ' +session['user_data']['login'] + '.'
+                flash('You were successfully logged in as ' +session['user_data']['login'] + '.')
             else:
-              message = "I'm sorry, you are not qualified"
+              flash("I am sorry, you are not qualified","error")
         except Exception as inst:
             #clear the session and give error message
             session.clear()
             print(inst)
-            message = 'Unable to login. Please try again.'
-    return render_template('message.html', message=message)
+            flash('Unable to login. Please try again.')
+    return render_template('message.html')
 
 
 @app.route('/page1')
